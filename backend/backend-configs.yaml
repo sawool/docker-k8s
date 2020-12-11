@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-configs
+data:
+  PORT: '8000'
+  CLIENT: http://localhost
+  MONGODB_URL: mongo-service.default

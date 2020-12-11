@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-
-type HelloResponse = {
-  hello: string;
-};
+import { sendName } from './util/APICalls';
 
 function Name() {
   const [name, setName] = useState('');
 
   const handleSend = async () => {
-    const response = await axios.get<HelloResponse>(`hello/${name}`);
-    alert(JSON.stringify(response.data));
-    setName('');
+    console.log('api url : ' + process.env.REACT_APP_baseAPIURL);
+    try {
+      const response = await sendName(name);
+      alert(JSON.stringify(response.data));
+      setName('');
+    } catch (err) {
+      alert(err);
+    }
   };
 
   return (

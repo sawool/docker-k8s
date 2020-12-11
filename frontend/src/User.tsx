@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { getUser, postUser } from './util/APICalls';
 
 type UserPayload = {
   email: string;
@@ -14,7 +14,7 @@ function User() {
 
   const handelInquiry = async () => {
     try {
-      const response = await axios.get<UserPayload>(`/api/user/${queryEmail}`);
+      const response = await getUser(queryEmail);
 
       if (response.data) {
         setResult(
@@ -36,7 +36,7 @@ function User() {
     };
 
     try {
-      await axios.post<UserPayload>('/api/user', user);
+      await postUser(user);
       alert('등록 성공');
     } catch (error) {
       console.log(error);

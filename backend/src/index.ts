@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import api from './routes/user';
 
@@ -9,15 +10,23 @@ const app = express();
 const port = process.env.PORT || '8000';
 const dbAddr = process.env.DB_ADDR || 'localhost';
 const dbPort = process.env.DB_PORT || '27017';
+const client = process.env.CLIENT || 'http://localhost:3000';
+const dbUrl = process.env.MONGODB_URL || `mongodb://${dbAddr}:${dbPort}`;
+
+const corsOptions = {
+  origin: client,
+  credentials: true,
+};
 
 app.use(morgan('dev'));
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use('/api', api);
 
 /* mongoose connection */
 /* mongoose.connect('mongodb://username:password@host:port/database?options...', {useNewUrlParser: true}); */
 mongoose
-  .connect(`mongodb://${dbAddr}:${dbPort}/docker_test`, {
+  .connect(`mongodb://${dbUrl}/docker_test`, {
     useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true,

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: client-app
+  template:
+    metadata:
+      labels:
+        app: client-app
+    spec:
+      containers:
+        - image: frontend:k8s
+          name: container1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: REACT_APP_baseAPIURL
+              value: http://backend-service
