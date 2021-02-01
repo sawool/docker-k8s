@@ -5,7 +5,6 @@ function Name() {
   const [name, setName] = useState('');
 
   const handleSend = async () => {
-    console.log('api url : ' + process.env.REACT_APP_baseAPIURL);
     try {
       const response = await sendName(name);
       alert(JSON.stringify(response.data));

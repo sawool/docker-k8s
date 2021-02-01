@@ -12,10 +12,9 @@ function User() {
   const [queryEmail, setQueryEmail] = useState('');
   const [result, setResult] = useState('');
 
-  const handelInquiry = async () => {
+  const handleInquiry = async () => {
     try {
       const response = await getUser(queryEmail);
-
       if (response.data) {
         setResult(
           `${response.data.email ? response.data.email : ''} - ${
@@ -73,7 +72,7 @@ function User() {
             setQueryEmail(e.currentTarget.value);
           }}
         ></input>
-        <button onClick={handelInquiry}>조회</button>
+        <button onClick={handleInquiry}>조회</button>
         <div>
           <label>조회결과 : {result}</label>
         </div>
